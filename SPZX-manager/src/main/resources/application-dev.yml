@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 182208
+    url: jdbc:mysql://localhost:3307/db_spzx?useUnicode=true&characteEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=true
+    type: org.springframework.jdbc.datasource.DriverManagerDataSource
+  data:
+    redis:
+      host: 192.168.100.131
+      database: 0
+      port: 6379
+      password: 182208
+mybatis:
+  mapper-locations: classpath:/mapper/*/*.xml
+  type-aliases-package: com.lkc.www.entity
+server:
+  port: 8501
+logging:
+  level:
+    com.lkc.www.mapper: debug
