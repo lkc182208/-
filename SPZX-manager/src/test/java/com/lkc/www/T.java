@@ -41,10 +41,7 @@ public class T {
 
     @Test
     void name3() {
-        String InputPassword = "123456";
-
-        String md5Password = DigestUtils.md5DigestAsHex(InputPassword.getBytes());
-
-        System.out.println(md5Password);
+        String key = UUID.randomUUID().toString().replaceAll("-", "");
+        System.out.println(key);
     }
 }
