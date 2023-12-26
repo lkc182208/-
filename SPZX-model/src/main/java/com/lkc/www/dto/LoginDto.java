@@ -8,4 +8,6 @@ import lombok.ToString;
 public class LoginDto {
     private String userName;
     private String password;
+    private String captcha;//验证码
+    private String codeKey;//redis中验证码的key
 }

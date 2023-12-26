@@ -27,7 +27,7 @@
         <mysql.version>8.0.28</mysql.version>
         <fastjson.version>2.0.32</fastjson.version>
         <lombok.version>1.18.20</lombok.version>
-        <mybatis.version>3.0.2</mybatis.version>
+        <mybatis.version>3.5.3</mybatis.version>
         <hutool-all.version>5.8.17</hutool-all.version>
         <easyexcel-version>3.3.0</easyexcel-version>
     </properties>
@@ -35,8 +35,8 @@
         <dependencies>
             <!--mybatis和springboot整合-->
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
             </dependency>
             <!--mysql驱动-->

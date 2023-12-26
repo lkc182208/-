@@ -19,8 +19,6 @@ public class JwtUtil {
     // 生产ID
     public static String getToken(Object o) {
         Map<String, Object> claimMaps = BeanUtil.beanToMap(o);
-        /*Map<String, Object> claimMaps = new HashMap<>();
-        claimMaps.put("id",id);*/
 
         long currentTime = System.currentTimeMillis();
         return Jwts.builder()

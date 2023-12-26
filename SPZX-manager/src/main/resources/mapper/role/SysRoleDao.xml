@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lkc.www.mapper.SysRoleDao">
+
+    <resultMap type="com.lkc.www.entity.SysRole" id="SysRoleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="columns">id,role_name,role_code,description,create_time,update_time,is_deleted</sql>
+    <insert id="saveSysRole" >
+        insert into db_spzx.sys_role(id,role_name,role_code,description) values (null,#{roleName},#{roleCode},#{description})
+    </insert>
+    <update id="updateSysRole">
+        update db_spzx.sys_role
+        <set>
+            <if test="sysrole.roleName != null and sysrole.roleName != ''">
+                role_name = #{sysrole.roleName},
+            </if>
+            <if test="sysrole.roleCode != null and sysrole.roleCode != ''">
+                role_code = #{sysrole.roleCode},
+            </if>
+            <if test="sysrole.description != null and sysrole.description != ''">
+                description = #{sysrole.description},
+            </if>
+            <if test="sysrole.updateTime != null">
+                update_time = #{sysrole.updateTime},
+            </if>
+        </set>
+        where id = #{sysrole.id}
+    </update>
+    <update id="deleteByIdAfter">
+        update db_spzx.sys_role set is_deleted = 1 where id = #{id}
+    </update>
+    <select id="findRoleByPage" resultMap="SysRoleMap">
+        select <include refid="columns" /> from db_spzx.sys_role
+        <where>
+            <if test="sysrole != null and sysrole.roleName != ''">
+                 role_name like concat('%',#{sysrole.roleName},'%')
+            </if>
+            and is_deleted = 0
+        </where>
+    </select>
+
+</mapper>
+

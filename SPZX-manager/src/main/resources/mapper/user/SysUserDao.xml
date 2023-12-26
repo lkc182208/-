@@ -16,10 +16,24 @@
         <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="colums">id,username userName,password,name,
-phone,avatar,description,status,create_time,update_time,is_deleted</sql>
-
+      phone,avatar,description,status,create_time,update_time,is_deleted</sql>
+    <insert id="saveSysUser">
+        insert into db_spzx.sys_user(name, phone, avatar, description) values (#{name},#{phone},#{avatar},#{description})
+    </insert>
     <select id="getUser" parameterType="string" resultMap="SysUserMap">
         select <include refid="colums" /> from db_spzx.sys_user where username = #{username} and status = 1 and is_deleted = 0
+    </select>
+    <select id="findByPage" resultMap="SysUserMap">
+        select <include refid="colums" /> from db_spzx.sys_user
+        <where>
+        <if test="sysUser.username != null and sysUser.username != ''">
+            username like concat('%',#{sysUser.username},'%')
+        </if>
+        <if test="sysUser.beginTime != null and sysUser.endTime != null">
+            and create_time between #{sysUser.beginTime} and #{sysUser.endTime}
+        </if>
+        and status = 1 and is_deleted = 0
+    </where>
     </select>
 
 </mapper>

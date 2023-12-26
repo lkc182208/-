@@ -1,18 +1,22 @@
 package com.lkc.www;
 
+import com.github.pagehelper.PageInfo;
+import com.lkc.www.dto.SysRoleDto;
+import com.lkc.www.entity.SysRole;
 import com.lkc.www.entity.SysUser;
+import com.lkc.www.mapper.SysRoleDao;
 import com.lkc.www.mapper.SysUserDao;
+import com.lkc.www.service.SysRoleService;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.util.DigestUtils;
 
-import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-@SpringBootTest
+@SpringBootTest(classes = ManagerApplication.class)
 public class T {
 
     @Resource
@@ -20,6 +24,17 @@ public class T {
 
     @Resource
     StringRedisTemplate stringRedisTemplate;
+
+    @Resource
+    SysRoleService sysRoleService;
+
+    @Resource
+    SysRoleDao sysRoleDao;
+    @Test
+    void testtt() {
+        List<SysRole> sysRoles = sysRoleDao.selectList(null);
+        System.out.println(sysRoles);
+    }
 
     @Test
     void name() {

@@ -16,7 +16,7 @@
         <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="colums">id,username userName,password,name,
-phone,avatar,description,status,create_time,update_time,is_deleted</sql>
+      phone,avatar,description,status,create_time,update_time,is_deleted</sql>
 
     <select id="getUser" parameterType="string" resultMap="SysUserMap">
         select <include refid="colums" /> from db_spzx.sys_user where username = #{username} and status = 1 and is_deleted = 0

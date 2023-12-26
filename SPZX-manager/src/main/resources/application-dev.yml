@@ -11,8 +11,10 @@ spring:
       database: 0
       port: 6379
       password: 182208
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:/mapper/*/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.lkc.www.entity
 server:
   port: 8501
