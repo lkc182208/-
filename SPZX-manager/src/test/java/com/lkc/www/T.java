@@ -32,8 +32,9 @@ public class T {
     SysRoleDao sysRoleDao;
     @Test
     void testtt() {
-        List<SysRole> sysRoles = sysRoleDao.selectList(null);
-        System.out.println(sysRoles);
+
+        List<SysUser> byPage = sysUserDao.findByPage(null);
+        System.out.println(byPage);
     }
 
     @Test

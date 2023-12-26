@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -158,5 +159,38 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setPassword(md5Password);
 
         sysUserDao.saveSysUser(sysUser);
+    }
+
+    @Override
+    public void updateSysUser(SysUser sysUser) {
+        if(BeanUtil.isEmpty(sysUser)){
+            throw new SpzxException(ResultCodeEnum.DATA_ERROR);
+        }
+        //判断用户名
+        String username = sysUser.getUsername();
+        LambdaQueryWrapper<SysUser> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(SysUser::getUsername,username);
+        Long l = sysUserDao.selectCount(lqw);
+        if(l > 1){
+            //用户名已经存在
+            throw new SpzxException(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+        if(!StrUtil.isBlank(sysUser.getPassword())){
+            //密码加密
+            String md5Password = DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes());
+            sysUser.setPassword(md5Password);
+        }
+        //更新时间
+        sysUser.setUpdateTime(new Date(System.currentTimeMillis()));
+        sysUserDao.updateSysUser(sysUser);
+    }
+
+    @Override
+    public void deleteSysUser(Long userId) {
+        SysUser sysUser = sysUserDao.selectById(userId);
+        if(BeanUtil.isEmpty(sysUser)){
+            throw new SpzxException(ResultCodeEnum.DATA_ERROR);
+        }
+        sysUserDao.deleteSysUser(userId);
     }
 }

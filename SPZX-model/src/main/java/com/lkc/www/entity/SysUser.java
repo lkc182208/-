@@ -1,5 +1,6 @@
 package com.lkc.www.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
 
@@ -50,10 +51,12 @@ public class SysUser implements Serializable {
 /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
 /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date updateTime;
 /**
      * 删除标记（0:未删除 1已删除）

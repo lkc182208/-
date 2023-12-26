@@ -19,4 +19,8 @@ public interface SysUserDao extends BaseMapper<SysUser> {
     List<SysUser> findByPage(@Param("sysUser") SysUserDto sysUserDto);
 
     void saveSysUser(SysUser sysUser);
+
+    void updateSysUser(@Param("sysUser") SysUser sysUser);
+
+    void deleteSysUser(Long userId);
 }

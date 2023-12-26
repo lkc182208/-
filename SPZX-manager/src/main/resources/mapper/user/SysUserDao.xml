@@ -20,20 +20,54 @@
     <insert id="saveSysUser">
         insert into db_spzx.sys_user(name, phone, avatar, description) values (#{name},#{phone},#{avatar},#{description})
     </insert>
+    <update id="updateSysUser">
+        update db_spzx.sys_user
+        <set>
+            <if test="sysUser != null">
+                <if test="sysUser.username != null and sysUser.username != ''">
+                    username = #{sysUser.username},
+                </if>
+                <if test="sysUser.password != null and sysUser.password != ''">
+                    password = #{sysUser.password},
+                </if>
+                <if test="sysUser.name != null and sysUser.name != ''">
+                    name = #{sysUser.name},
+                </if>
+                <if test="sysUser.phone != null">
+                    phone = #{sysUser.phone},
+                </if>
+                <if test="sysUser.description != null and sysUser.description != ''">
+                    description = #{sysUser.description},
+                </if>
+                <if test="sysUser.updateTime != null">
+                    update_time = #{sysUser.updateTime},
+                </if>
+                <if test="sysUser.status != null and sysUser.status != ''">
+                    status = #{sysUser.status}
+                </if>
+            </if>
+            where id = #{sysUser.id}
+        </set>
+    </update>
+    <update id="deleteSysUser">
+        update db_spzx.sys_user set is_deleted = 1 where id = #{userId}
+    </update>
     <select id="getUser" parameterType="string" resultMap="SysUserMap">
         select <include refid="colums" /> from db_spzx.sys_user where username = #{username} and status = 1 and is_deleted = 0
     </select>
     <select id="findByPage" resultMap="SysUserMap">
-        select <include refid="colums" /> from db_spzx.sys_user
+        select <include refid="colums"></include> from db_spzx.sys_user
         <where>
-        <if test="sysUser.username != null and sysUser.username != ''">
-            username like concat('%',#{sysUser.username},'%')
-        </if>
-        <if test="sysUser.beginTime != null and sysUser.endTime != null">
-            and create_time between #{sysUser.beginTime} and #{sysUser.endTime}
-        </if>
-        and status = 1 and is_deleted = 0
-    </where>
+            <if test="sysUser != null">
+                <if test="sysUser.username != null and sysUser.username != ''">
+                    username like concat('%',#{sysUser.username},'%')
+                </if>
+                <if test="sysUser.beginTime != null and sysUser.endTime != null">
+                    and create_time between #{sysUser.beginTime} and #{sysUser.endTime}
+                </if>
+            </if>
+            and status = 1 and is_deleted = 0 order by create_time desc
+        </where>
     </select>
 
 </mapper>

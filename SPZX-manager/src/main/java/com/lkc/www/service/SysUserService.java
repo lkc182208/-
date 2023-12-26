@@ -17,4 +17,8 @@ public interface SysUserService {
 
     void saveSysUser(SysUser sysUser);
 
+    void updateSysUser(SysUser sysUser);
+
+    void deleteSysUser(Long userId);
+
 }

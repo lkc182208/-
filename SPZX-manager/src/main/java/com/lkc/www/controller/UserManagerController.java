@@ -30,9 +30,30 @@ public class UserManagerController {
         PageInfo<SysUser> pageInfo = sysUserService.findByPage(pageNum,pageSize,sysUserDto);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
-    @PostMapping("saveSysUser")
+
+    /**
+     * 用户管理新增用户
+     * @param sysUser
+     * @return
+     */
+    @PostMapping("/saveSysUser")
     public Result saveSysUser(@RequestBody SysUser sysUser){
         sysUserService.saveSysUser(sysUser);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+    /**
+     * 用户管理更新用户
+     * @param sysUser
+     * @return
+     */
+    @PutMapping("/updateSysUser")
+    public Result updateSysUser(@RequestBody SysUser sysUser){
+        sysUserService.updateSysUser(sysUser);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+    @DeleteMapping("/deleteSysUser/{userId}")
+    public Result deleteSysUser(@PathVariable("userId") Long userId){
+        sysUserService.deleteSysUser(userId);
         return Result.build(null,ResultCodeEnum.SUCCESS);
     }
 }
